@@ -1,8 +1,5 @@
-import { wonBy, won } from "./won"
-
-const X:X = "X"
-const O:O = "O"
-const _:_ = "_"
+import { wonBy, won, isOccupied, drawn } from "./won"
+import { X, O, _ } from "./pieces"
 
 test('position won by X', () => {
     const b: Board = [X,X,X,_,_,_,O,O,_]
@@ -21,10 +18,28 @@ test('not won by anyone', () => {
 
 test('won position', () => {
     const b: Board = [X,X,O,X,O,_,O,O,_]
-    expect(won(b)).toBeTruthy
+    expect(won(b)).toBeTruthy()
+})
+
+test('drawn position', () => {
+    const b: Board = [O,X,O,X,O,X,X,O,X]
+    expect(won(b)).toBeFalsy()
+    expect(drawn(b)).toBeTruthy()
 })
 
 test('ongoing position', () => {
     const b: Board = [X,_,_,X,O,_,O,O,_]
-    expect(won(b)).toBeFalsy
+    expect(won(b)).toBeFalsy()
+})
+
+test('is occupied by X', () => {
+    expect(isOccupied(X)).toBeTruthy()
+})
+
+test('is occupied by O', () => {
+    expect(isOccupied(O)).toBeTruthy()
+})
+
+test('is unoccupied by _', () => {
+    expect(isOccupied(_)).toBeFalsy()
 })
